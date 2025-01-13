@@ -18,17 +18,7 @@
             bindings = <&kp LGUI>, <&to 1>;
         };
 
-        mmc: mouse_click {
-            compatible = "zmk,behavior-mouse-click";
-            label = "MOUSE_CLICK";
-            #binding-cells = <1>;
-        };
 
-        mmv: mouse_move {
-            compatible = "zmk,behavior-mouse-move";
-            label = "MOUSE_MOVE";
-            #binding-cells = <2>;
-        };
 };
         
         keymap {
@@ -60,10 +50,13 @@
                         >;
                 };
 
+
+
+
 mouse_layer {
     bindings = <
-        &trans  &trans  &trans  &trans  &trans  &trans      &trans  &mmc 1  &mmc 2  &trans  &trans  &trans
-        &trans  &trans  &trans  &trans  &trans  &trans      &mmv (-5)  (0)  &mmv (0) (-5)  &mmv (0) (5)  &mmv (5) (0)  &trans  &trans
+        &trans  &trans  &trans  &trans  &trans  &trans      &trans   &mt M1    &mt M2    &mt M3    &mt M4  &trans
+        &trans  &trans  &trans  &trans  &trans  &trans      &kp MS_UP &kp MS_LEFT &kp MS_DOWN &kp MS_RIGHT   &trans  &trans
         &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans  &trans
                           &trans  &trans  &trans     &trans  &trans  &trans
     >;
