@@ -7,6 +7,7 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <pointing.h>
 
 / {
         behaviors {
@@ -17,7 +18,19 @@
             tapping-term-ms = <200>;
             bindings = <&kp LGUI>, <&to 1>;
         };
-    };
+
+        mmc: mouse_click {
+            compatible = "zmk,behavior-mouse-click";
+            label = "MOUSE_CLICK";
+            #binding-cells = <1>;
+        };
+
+        mmv: mouse_move {
+            compatible = "zmk,behavior-mouse-move";
+            label = "MOUSE_MOVE";
+            #binding-cells = <2>;
+        };
+};
         
         keymap {
                 compatible = "zmk,keymap";
@@ -48,13 +61,14 @@
                         >;
                 };
 
-                mouse_layer {
-                        bindings = <
-   &trans &trans &trans &trans &trans &trans     &trans &mmc LEFT &mmc RIGHT &trans &trans &trans
-   &trans &trans &trans &trans &trans &trans     &mmv LEFT &mmv DOWN &mmv UP &mmv RIGHT &trans &trans
-   &trans &trans &trans &trans &trans &trans     &trans &trans &trans &trans &trans &trans
-                          &trans &trans &trans     &trans &trans &trans
-                        >;
+mouse_layer {
+    bindings = <
+        &trans  &trans  &trans  &trans  &trans  &trans      &trans  &mmc 1  &mmc 2  &trans  &trans  &trans
+        &trans  &trans  &trans  &trans  &trans  &trans      &mmv -5  0  &mmv 0 -5  &mmv 0 5  &mmv 5 0  &trans  &trans
+        &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans  &trans
+                          &trans  &trans  &trans     &trans  &trans  &trans
+    >;
+};
                 };
         };
 };
