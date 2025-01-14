@@ -30,7 +30,7 @@
    &kp TAB  &kp Q  &kp W  &kp E  &kp R  &kp T     &kp Y  &kp U  &kp I  &kp O  &kp P  &kp RCTRL
    &kp LGUI  &kp A  &kp S  &kp D  &kp F  &kp G     &kp H  &kp J  &kp K  &kp L  &kp RGUI  &kp SQT
    &kp LSHIFT  &kp Z  &kp X  &kp C  &kp V  &kp B     &kp N  &kp M  &kp COMMA  &kp DOT  &kp FSLH  &kp RSHIFT
-                          &kp LALT &lt 3 SPACE &lt 2 RET   &lt 1 ESC &kp BSPC &kp RALT
+                          &kp LALT &mo 3 SPACE &lt 2 RET   &lt 1 ESC &kp BSPC &kp RALT
                         >;
                 };
                 lower_layer {
