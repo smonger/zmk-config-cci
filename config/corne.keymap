@@ -42,7 +42,7 @@
                 &kp LA(LEFT)       &kp LA(RIGHT)      &kp LS(LA(LEFT)) &kp LS(LA(RIGHT)) &none &none
 
                 /* Left thumbs                                    Right thumbs */
-                &kp GLOBE         &kp SPACE        &kp RET          &kp ESC          &page_down_80   &none
+                &kp GLOBE         &kp SPACE        &kp RET          &kp ESC          &page_down_80   &kp LG(LC(LA(K)))
             >;
         };
     };
