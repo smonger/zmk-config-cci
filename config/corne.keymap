@@ -1,6 +1,10 @@
-/* Korn split — Whisper Flow / macOS navigation layout (iteration 2)
+/* Korn split — Whisper Flow / macOS navigation layout
  *
- * Phase 0 baseline: plain GLOBE / LG(TAB) — no custom hold-taps.
+ * Matrix: 12-wide interleaved rows (left 6 outer→inner, right 6 inner→outer),
+ * then thumbs (L outer→inner, R inner→outer). See project keymap-physical-map.
+ *
+ * Switcher option A: LG(TAB) + LGUI + LEFT/RIGHT on right top (R0.0–R0.3).
+ * Plain bindings only — no custom hold-taps.
  */
 
 #include <behaviors.dtsi>
@@ -20,24 +24,37 @@
                 &kp DOWN &kp DOWN &kp DOWN &kp DOWN
             >;
         };
+
+        page_up_80: macro_page_up_80 {
+            compatible = "zmk,behavior-macro";
+            label = "PAGE_UP_80";
+            #binding-cells = <0>;
+            bindings = <
+                &kp UP &kp UP &kp UP &kp UP &kp UP
+                &kp UP &kp UP &kp UP &kp UP &kp UP
+                &kp UP &kp UP &kp UP &kp UP
+            >;
+        };
     };
 
     keymap {
         compatible = "zmk,keymap";
         navigation_layer {
             bindings = <
-                /* Left half: scrolling and document/application controls */
-                &kp PAGE_UP &kp PAGE_DOWN &kp LG(PAGE_UP) &kp LG(PAGE_DOWN) &kp LG(LA(PAGE_UP)) &kp LG(LA(PAGE_DOWN))
-                &kp LG(TAB) &kp LG(TILDE) &kp LG(W) &kp LG(T) &kp LG(LS(T)) &kp LG(L)
-                &kp UP &kp DOWN &kp LG(HOME) &kp LG(END) &kp HOME &kp END
+                /* Top row: L0.0–L0.5 | R0.0–R0.5 — scroll + switcher cluster */
+                &kp PAGE_UP  &kp PAGE_DOWN  &page_up_80  &kp LG(T)  &kp LG(LS(T))  &kp LG(L)
+                &kp LG(TAB)  &kp LGUI       &kp LEFT     &kp RIGHT  &kp LG(TILDE)   &kp LG(W)
 
-                /* Right half: terminal, browser, tabs, and editing */
-                &kp LG(SPACE) &kp LG(N) &kp LC(C) &kp LC(R) &kp LC(LS(TAB)) &kp LC(TAB)
-                &kp LC(TAB) &kp LC(LS(TAB)) &kp LG(LEFT_BRACKET) &kp LG(RIGHT_BRACKET) &kp LG(R) &kp LG(F)
-                &kp LA(LEFT) &kp LA(RIGHT) &kp LS(LA(LEFT)) &kp LS(LA(RIGHT)) &kp BACKSPACE &kp F18
+                /* Home row: L1.0–L1.5 | R1.0–R1.5 — doc nav + Spotlight/Terminal/tabs */
+                &kp UP  &kp DOWN  &kp LG(HOME)  &kp LG(END)  &kp LS(HOME)  &kp LS(END)
+                &kp LG(SPACE)  &kp LG(N)  &kp LC(C)  &kp LC(R)  &kp LC(LS(TAB))  &kp LC(TAB)
 
-                /* Thumbs: Wispr Flow, Space, Enter / Escape, large scroll, spare */
-                &kp GLOBE &kp SPACE &kp RET &kp ESC &page_down_80 &none
+                /* Bottom row: L2.0–L2.5 | R2.0–R2.5 — browser + word hop + overlay */
+                &kp LG(LEFT_BRACKET)  &kp LG(RIGHT_BRACKET)  &kp LG(R)  &kp LG(F)  &none  &none
+                &kp LA(LEFT)  &kp LA(RIGHT)  &kp LS(LA(LEFT))  &kp LS(LA(RIGHT))  &kp BACKSPACE  &kp F18
+
+                /* Thumbs: LT0–LT2 | RT0–RT2 */
+                &kp GLOBE  &kp SPACE  &kp RET  &kp ESC  &page_down_80  &none
             >;
         };
     };
