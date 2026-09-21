@@ -1,9 +1,10 @@
-/* Korn split — Whisper Flow / macOS navigation layout
+/* Korn split — Whisper Flow / macOS navigation layout (proposed seats)
  *
  * Matrix: 12-wide interleaved rows (left 6 outer→inner, right 6 inner→outer),
  * then thumbs (L outer→inner, R inner→outer). See project keymap-physical-map.
  *
- * Switcher option A: LG(TAB) + LGUI + LEFT/RIGHT on right top (R0.0–R0.3).
+ * Layout: layout-brief §3 — switcher on bottom (L/R + LGUI + LG(TAB));
+ * scroll 2×2 left-inner; tab 2×2 left-center; thumbs Wispr/BS/Enter/Esc/Spotlight/F18.
  * Plain bindings only — no custom hold-taps.
  */
 
@@ -41,20 +42,27 @@
         compatible = "zmk,keymap";
         navigation_layer {
             bindings = <
-                /* Top row: L0.0–L0.5 | R0.0–R0.5 — scroll + switcher cluster */
-                &kp PAGE_UP  &kp PAGE_DOWN  &page_up_80  &kp LG(T)  &kp LG(LS(T))  &kp LG(L)
-                &kp LG(TAB)  &kp LGUI       &kp LEFT     &kp RIGHT  &kp LG(TILDE)   &kp LG(W)
+                /* Top: L0.0–L0.5 | R0.0–R0.5
+                 * L: LC(R) LG(L) LG([) LG(]) LG(R) LG(F)
+                 * R: LA(LEFT) LA(RIGHT) LS(LA(LEFT)) LS(LA(RIGHT)) LC(C) LC(LG(C)) */
+                &kp LC(R)  &kp LG(L)  &kp LG(LEFT_BRACKET)  &kp LG(RIGHT_BRACKET)  &kp LG(R)  &kp LG(F)
+                &kp LA(LEFT)  &kp LA(RIGHT)  &kp LS(LA(LEFT))  &kp LS(LA(RIGHT))  &kp LC(C)  &kp LC(LG(C))
 
-                /* Home row: L1.0–L1.5 | R1.0–R1.5 — doc nav + Spotlight/Terminal/tabs */
-                &kp UP  &kp DOWN  &kp LG(HOME)  &kp LG(END)  &kp LS(HOME)  &kp LS(END)
-                &kp LG(SPACE)  &kp LG(N)  &kp LC(C)  &kp LC(R)  &kp LC(LS(TAB))  &kp LC(TAB)
+                /* Home: L1.0–L1.5 | R1.0–R1.5
+                 * L: LG(LS(T)) LG(HOME) | tab 2×2 top | scroll 2×2 top
+                 * R: UP DOWN LG(TILDE) LG(N) SPACE LC(LG(F)) */
+                &kp LG(LS(T))  &kp LG(HOME)  &kp LC(LS(TAB))  &kp LC(TAB)  &kp PAGE_UP  &page_up_80
+                &kp UP  &kp DOWN  &kp LG(TILDE)  &kp LG(N)  &kp SPACE  &kp LC(LG(F))
 
-                /* Bottom row: L2.0–L2.5 | R2.0–R2.5 — browser + word hop + overlay */
-                &kp LG(LEFT_BRACKET)  &kp LG(RIGHT_BRACKET)  &kp LG(R)  &kp LG(F)  &none  &none
-                &kp LA(LEFT)  &kp LA(RIGHT)  &kp LS(LA(LEFT))  &kp LS(LA(RIGHT))  &kp BACKSPACE  &kp F18
+                /* Bottom: L2.0–L2.5 | R2.0–R2.5
+                 * L: LS(HOME) LS(END) | tab 2×2 bot | scroll 2×2 bot
+                 * R: LEFT RIGHT LGUI LG(TAB) LG(END) &none */
+                &kp LS(HOME)  &kp LS(END)  &kp LG(W)  &kp LG(T)  &kp PAGE_DOWN  &page_down_80
+                &kp LEFT  &kp RIGHT  &kp LGUI  &kp LG(TAB)  &kp LG(END)  &none
 
-                /* Thumbs: LT0–LT2 | RT0–RT2 */
-                &kp GLOBE  &kp SPACE  &kp RET  &kp ESC  &page_down_80  &none
+                /* Thumbs: LT0–LT2 | RT0–RT2
+                 * GLOBE BACKSPACE RET | ESC LG(SPACE) F18 */
+                &kp GLOBE  &kp BACKSPACE  &kp RET  &kp ESC  &kp LG(SPACE)  &kp F18
             >;
         };
     };
