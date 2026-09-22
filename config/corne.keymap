@@ -56,9 +56,9 @@
 
                 /* Bottom: L2.0–L2.5 | R2.0–R2.5
                  * L: LS(HOME) LS(END) | tab 2×2 bot | scroll 2×2 bot
-                 * R: LEFT RIGHT LGUI LG(TAB) LG(END) &none */
+                 * R: LEFT RIGHT LGUI LG(TAB) LG(END) F19 (VC listen) */
                 &kp LS(HOME)  &kp LS(END)  &kp LG(W)  &kp LG(T)  &kp PAGE_DOWN  &page_down_80
-                &kp LEFT  &kp RIGHT  &kp LGUI  &kp LG(TAB)  &kp LG(END)  &none
+                &kp LEFT  &kp RIGHT  &kp LGUI  &kp LG(TAB)  &kp LG(END)  &kp F19
 
                 /* Thumbs: LT0–LT2 | RT0–RT2
                  * GLOBE BACKSPACE RET | ESC LG(SPACE) F18 */
