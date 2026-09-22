@@ -5,7 +5,7 @@
  *
  * Layout: layout-brief §3 — switcher on bottom (L/R + LGUI + LG(TAB));
  * scroll 2×2 left-inner; tab 2×2 left-center; thumbs Wispr/BS/Enter/Esc/Spotlight/F18.
- * Plain bindings only — no custom hold-taps.
+ * R2.5 F19 = Voice Control listen (Hammerspoon). Plain bindings only — no custom hold-taps.
  */
 
 #include <behaviors.dtsi>
