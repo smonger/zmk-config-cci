@@ -5,6 +5,7 @@
  *
  * Layout: layout-brief §3 — switcher on bottom (L/R + LGUI + LG(TAB));
  * scroll 2×2 left-inner; tab 2×2 left-center; thumbs Wispr/BS/Enter/Esc/Spotlight/F18.
+ * L2.0 F16 = second Wispr Flow trigger (map double-tap in Wispr app; no Hammerspoon).
  * R2.5 F19 = Voice Control listen (Hammerspoon). Plain bindings only — no custom hold-taps.
  */
 
@@ -55,9 +56,9 @@
                 &kp UP  &kp DOWN  &kp LG(TILDE)  &kp LG(N)  &kp SPACE  &kp LC(LG(F))
 
                 /* Bottom: L2.0–L2.5 | R2.0–R2.5
-                 * L: LS(HOME) LS(END) | tab 2×2 bot | scroll 2×2 bot
+                 * L: F16 (2nd Wispr) LS(END) | tab 2×2 bot | scroll 2×2 bot
                  * R: LEFT RIGHT LGUI LG(TAB) LG(END) F19 (VC listen) */
-                &kp LS(HOME)  &kp LS(END)  &kp LG(W)  &kp LG(T)  &kp PAGE_DOWN  &page_down_80
+                &kp F16  &kp LS(END)  &kp LG(W)  &kp LG(T)  &kp PAGE_DOWN  &page_down_80
                 &kp LEFT  &kp RIGHT  &kp LGUI  &kp LG(TAB)  &kp LG(END)  &kp F19
 
                 /* Thumbs: LT0–LT2 | RT0–RT2
