@@ -7,9 +7,9 @@
  * (L/R + LGUI + LG(TAB)); 14× scroll macros stay L1.5/L2.5; Page Up/Down on
  * right thumbs; plain Up/Down on former Page seats; Esc/Spotlight/F18 on
  * former Up/Down/next-window seats; next_window on RT2; CMD N ↔ CMD T;
- * Space ↔ CMD Shift T.
+ * Space ↔ CMD Home; Shift-End to L2.0 edge; reopen to former Shift-End;
+ * Fullscreen to former reopen (R1.4); R1.5 spare.
  * LT0 F16 = sole Wispr Flow toggle (map Toggle in Wispr app; no GLOBE; no Hammerspoon).
- * L2.0 = &none (freed edge; was duplicate F16).
  * R2.5 F19 = Voice Control listen (Hammerspoon).
  *
  * One-shot app chords (next/close/new window, new tab) use tap macros so a held
@@ -94,15 +94,15 @@
                 &kp LA(LEFT)  &kp LA(RIGHT)  &kp LS(LA(LEFT))  &kp LS(LA(RIGHT))  &kp LC(C)  &kp LC(LG(C))
 
                 /* Home: L1.0–L1.5 | R1.0–R1.5
-                 * L: SPACE LG(HOME) | tab 2×2 top | UP + 14× Up
-                 * R: ESC Spotlight F18 new_tab LG(LS(T)) LC(LG(F)) */
-                &kp SPACE  &kp LG(HOME)  &kp LC(LS(TAB))  &kp LC(TAB)  &kp UP  &page_up_80
-                &kp ESC  &kp LG(SPACE)  &kp F18  &new_tab  &kp LG(LS(T))  &kp LC(LG(F))
+                 * L: LG(HOME) SPACE | tab 2×2 top | UP + 14× Up
+                 * R: ESC Spotlight F18 new_tab Fullscreen spare */
+                &kp LG(HOME)  &kp SPACE  &kp LC(LS(TAB))  &kp LC(TAB)  &kp UP  &page_up_80
+                &kp ESC  &kp LG(SPACE)  &kp F18  &new_tab  &kp LC(LG(F))  &none
 
                 /* Bottom: L2.0–L2.5 | R2.0–R2.5
-                 * L: none (spare) LS(END) | close + new_window | DOWN + 14× Down
+                 * L: LS(END) LG(LS(T)) | close + new_window | DOWN + 14× Down
                  * R: LEFT RIGHT LGUI LG(TAB) LG(END) F19 (VC listen) */
-                &none  &kp LS(END)  &close_window  &new_window  &kp DOWN  &page_down_80
+                &kp LS(END)  &kp LG(LS(T))  &close_window  &new_window  &kp DOWN  &page_down_80
                 &kp LEFT  &kp RIGHT  &kp LGUI  &kp LG(TAB)  &kp LG(END)  &kp F19
 
                 /* Thumbs: LT0–LT2 | RT0–RT2
