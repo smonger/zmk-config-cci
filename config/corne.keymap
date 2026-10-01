@@ -6,7 +6,10 @@
  * Layout: layout-brief §3 — switcher on bottom (L/R + LGUI + LG(TAB));
  * scroll 2×2 left-inner; tab 2×2 left-center; thumbs Wispr/BS/Enter/Esc/Spotlight/F18.
  * L2.0 F16 = second Wispr Flow trigger (map double-tap in Wispr app; no Hammerspoon).
- * R2.5 F19 = Voice Control listen (Hammerspoon). Plain bindings only — no custom hold-taps.
+ * R2.5 F19 = Voice Control listen (Hammerspoon).
+ *
+ * One-shot app chords (next/close/new window, new tab) use tap macros so a held
+ * physical key cannot keep the chord down and trigger macOS key-repeat.
  */
 
 #include <behaviors.dtsi>
@@ -37,6 +40,43 @@
                 &kp UP &kp UP &kp UP &kp UP
             >;
         };
+
+        /* Tap once on press; do not hold the chord while the key stays down. */
+        next_window: macro_next_window {
+            compatible = "zmk,behavior-macro";
+            label = "NEXT_WINDOW";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings = <&kp LG(TILDE)>;
+        };
+
+        close_window: macro_close_window {
+            compatible = "zmk,behavior-macro";
+            label = "CLOSE_WINDOW";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings = <&kp LG(W)>;
+        };
+
+        new_window: macro_new_window {
+            compatible = "zmk,behavior-macro";
+            label = "NEW_WINDOW";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings = <&kp LG(N)>;
+        };
+
+        new_tab: macro_new_tab {
+            compatible = "zmk,behavior-macro";
+            label = "NEW_TAB";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings = <&kp LG(T)>;
+        };
     };
 
     keymap {
@@ -51,14 +91,14 @@
 
                 /* Home: L1.0–L1.5 | R1.0–R1.5
                  * L: LG(LS(T)) LG(HOME) | tab 2×2 top | scroll 2×2 top
-                 * R: UP DOWN LG(TILDE) LG(N) SPACE LC(LG(F)) */
+                 * R: UP DOWN next_window new_window SPACE LC(LG(F)) */
                 &kp LG(LS(T))  &kp LG(HOME)  &kp LC(LS(TAB))  &kp LC(TAB)  &kp PAGE_UP  &page_up_80
-                &kp UP  &kp DOWN  &kp LG(TILDE)  &kp LG(N)  &kp SPACE  &kp LC(LG(F))
+                &kp UP  &kp DOWN  &next_window  &new_window  &kp SPACE  &kp LC(LG(F))
 
                 /* Bottom: L2.0–L2.5 | R2.0–R2.5
                  * L: F16 (2nd Wispr) LS(END) | tab 2×2 bot | scroll 2×2 bot
                  * R: LEFT RIGHT LGUI LG(TAB) LG(END) F19 (VC listen) */
-                &kp F16  &kp LS(END)  &kp LG(W)  &kp LG(T)  &kp PAGE_DOWN  &page_down_80
+                &kp F16  &kp LS(END)  &close_window  &new_tab  &kp PAGE_DOWN  &page_down_80
                 &kp LEFT  &kp RIGHT  &kp LGUI  &kp LG(TAB)  &kp LG(END)  &kp F19
 
                 /* Thumbs: LT0–LT2 | RT0–RT2
