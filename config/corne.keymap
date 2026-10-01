@@ -9,7 +9,7 @@
  * former Up/Down/next-window seats; next_window on RT2; CMD N ↔ CMD T;
  * Space ↔ CMD Home; Shift-End to L2.0 edge; reopen to former Shift-End;
  * Fullscreen to former reopen (R1.4); R1.5 spare.
- * LT0 GLOBE = sole Wispr Flow key (Wispr app: bind Globe, mode Toggle; F16 not bindable).
+ * LT0 LALT = sole Wispr Flow key (Wispr app: bind Option/Alt; F16/Globe not used).
  * R2.5 F19 = Voice Control listen (Hammerspoon).
  *
  * One-shot app chords (next/close/new window, new tab) use tap macros so a held
@@ -48,7 +48,7 @@
         /* Tap once on press; do not hold the chord while the key stays down.
          * macOS next-window is Cmd+` (GRAVE). ZMK TILDE is Shift+GRAVE, so
          * LG(TILDE) is Cmd+Shift+` (previous window) and can type ~ if Cmd
-         * does not apply — never put that on LT0; LT0 stays GLOBE for Wispr. */
+         * does not apply — never put that on LT0; LT0 stays LALT for Wispr. */
         next_window: macro_next_window {
             compatible = "zmk,behavior-macro";
             label = "NEXT_WINDOW";
@@ -109,8 +109,8 @@
                 &kp LEFT  &kp RIGHT  &kp LGUI  &kp LG(TAB)  &kp LG(END)  &kp F19
 
                 /* Thumbs: LT0–LT2 | RT0–RT2
-                 * GLOBE (Wispr) BACKSPACE RET | PAGE_UP PAGE_DOWN next_window */
-                &kp GLOBE  &kp BACKSPACE  &kp RET  &kp PAGE_UP  &kp PAGE_DOWN  &next_window
+                 * LALT / Option (Wispr) BACKSPACE RET | PAGE_UP PAGE_DOWN next_window */
+                &kp LALT  &kp BACKSPACE  &kp RET  &kp PAGE_UP  &kp PAGE_DOWN  &next_window
             >;
         };
     };
