@@ -3,8 +3,11 @@
  * Matrix: 12-wide interleaved rows (left 6 outer→inner, right 6 inner→outer),
  * then thumbs (L outer→inner, R inner→outer). See project keymap-physical-map.
  *
- * Layout: layout-brief §3 — switcher on bottom (L/R + LGUI + LG(TAB));
- * scroll 2×2 left-inner; tab 2×2 left-center; thumbs Wispr/BS/Enter/Esc/Spotlight/F18.
+ * Layout: layout-brief §3 + 2026-10-01 seat remaps — switcher on bottom
+ * (L/R + LGUI + LG(TAB)); 14× scroll macros stay L1.5/L2.5; Page Up/Down on
+ * right thumbs; plain Up/Down on former Page seats; Esc/Spotlight/F18 on
+ * former Up/Down/next-window seats; next_window on RT2; CMD N ↔ CMD T;
+ * Space ↔ CMD Shift T.
  * LT0 F16 = sole Wispr Flow toggle (map Toggle in Wispr app; no GLOBE; no Hammerspoon).
  * L2.0 = &none (freed edge; was duplicate F16).
  * R2.5 F19 = Voice Control listen (Hammerspoon).
@@ -91,20 +94,20 @@
                 &kp LA(LEFT)  &kp LA(RIGHT)  &kp LS(LA(LEFT))  &kp LS(LA(RIGHT))  &kp LC(C)  &kp LC(LG(C))
 
                 /* Home: L1.0–L1.5 | R1.0–R1.5
-                 * L: LG(LS(T)) LG(HOME) | tab 2×2 top | scroll 2×2 top
-                 * R: UP DOWN next_window new_window SPACE LC(LG(F)) */
-                &kp LG(LS(T))  &kp LG(HOME)  &kp LC(LS(TAB))  &kp LC(TAB)  &kp PAGE_UP  &page_up_80
-                &kp UP  &kp DOWN  &next_window  &new_window  &kp SPACE  &kp LC(LG(F))
+                 * L: SPACE LG(HOME) | tab 2×2 top | UP + 14× Up
+                 * R: ESC Spotlight F18 new_tab LG(LS(T)) LC(LG(F)) */
+                &kp SPACE  &kp LG(HOME)  &kp LC(LS(TAB))  &kp LC(TAB)  &kp UP  &page_up_80
+                &kp ESC  &kp LG(SPACE)  &kp F18  &new_tab  &kp LG(LS(T))  &kp LC(LG(F))
 
                 /* Bottom: L2.0–L2.5 | R2.0–R2.5
-                 * L: none (spare) LS(END) | tab 2×2 bot | scroll 2×2 bot
+                 * L: none (spare) LS(END) | close + new_window | DOWN + 14× Down
                  * R: LEFT RIGHT LGUI LG(TAB) LG(END) F19 (VC listen) */
-                &none  &kp LS(END)  &close_window  &new_tab  &kp PAGE_DOWN  &page_down_80
+                &none  &kp LS(END)  &close_window  &new_window  &kp DOWN  &page_down_80
                 &kp LEFT  &kp RIGHT  &kp LGUI  &kp LG(TAB)  &kp LG(END)  &kp F19
 
                 /* Thumbs: LT0–LT2 | RT0–RT2
-                 * F16 (Wispr toggle) BACKSPACE RET | ESC LG(SPACE) F18 */
-                &kp F16  &kp BACKSPACE  &kp RET  &kp ESC  &kp LG(SPACE)  &kp F18
+                 * F16 (Wispr toggle) BACKSPACE RET | PAGE_UP PAGE_DOWN next_window */
+                &kp F16  &kp BACKSPACE  &kp RET  &kp PAGE_UP  &kp PAGE_DOWN  &next_window
             >;
         };
     };
