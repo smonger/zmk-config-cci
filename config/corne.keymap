@@ -1,10 +1,20 @@
-/* Korn split — Whisper Flow / macOS navigation layout
+/* Korn split — Whisper Flow / macOS navigation layout (proposed seats)
  *
  * Matrix: 12-wide interleaved rows (left 6 outer→inner, right 6 inner→outer),
  * then thumbs (L outer→inner, R inner→outer). See project keymap-physical-map.
  *
- * Switcher option A: LG(TAB) + LGUI + LEFT/RIGHT on right top (R0.0–R0.3).
- * Plain bindings only — no custom hold-taps.
+ * Layout: layout-brief §3 + 2026-10-01 seat remaps — switcher on bottom
+ * (L/R + LGUI + LG(TAB)); 14× scroll macros stay L1.5/L2.5; Page Up/Down on
+ * right thumbs; plain Up/Down on former Page seats; Esc/Spotlight/F18 on
+ * former Up/Down/next-window seats; next_window on RT2; CMD N ↔ CMD T;
+ * Space ↔ CMD Home; Shift-End to L2.0 edge; reopen to former Shift-End;
+ * Fullscreen to former reopen (R1.4); R1.5 spare.
+ * LT0 LALT = sole Wispr Flow key (Wispr app: bind Option/Alt; F16/Globe not used).
+ * R2.5 F19 = Voice Control listen (Hammerspoon).
+ *
+ * One-shot taps (next/close/new window, new tab, Left/Right) use tap macros so a
+ * held physical key cannot keep the key/chord down and trigger macOS key-repeat.
+ * Left/Right one-shots stop Cmd-Tab switcher overshoot from key-repeat.
  */
 
 #include <behaviors.dtsi>
@@ -35,26 +45,93 @@
                 &kp UP &kp UP &kp UP &kp UP
             >;
         };
+
+        /* Tap once on press; do not hold the chord while the key stays down.
+         * macOS next-window is Cmd+` (GRAVE). ZMK TILDE is Shift+GRAVE, so
+         * LG(TILDE) is Cmd+Shift+` (previous window) and can type ~ if Cmd
+         * does not apply — never put that on LT0; LT0 stays LALT for Wispr. */
+        next_window: macro_next_window {
+            compatible = "zmk,behavior-macro";
+            label = "NEXT_WINDOW";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings = <&kp LG(GRAVE)>;
+        };
+
+        close_window: macro_close_window {
+            compatible = "zmk,behavior-macro";
+            label = "CLOSE_WINDOW";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings = <&kp LG(W)>;
+        };
+
+        new_window: macro_new_window {
+            compatible = "zmk,behavior-macro";
+            label = "NEW_WINDOW";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings = <&kp LG(N)>;
+        };
+
+        new_tab: macro_new_tab {
+            compatible = "zmk,behavior-macro";
+            label = "NEW_TAB";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings = <&kp LG(T)>;
+        };
+
+        /* Same one-shot pattern as next/close window: tap once on press so a
+         * held Left/Right during Cmd-Tab cannot macOS-repeat and overshoot. */
+        left_arrow: macro_left_arrow {
+            compatible = "zmk,behavior-macro";
+            label = "LEFT_ARROW";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings = <&kp LEFT>;
+        };
+
+        right_arrow: macro_right_arrow {
+            compatible = "zmk,behavior-macro";
+            label = "RIGHT_ARROW";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings = <&kp RIGHT>;
+        };
     };
 
     keymap {
         compatible = "zmk,keymap";
         navigation_layer {
             bindings = <
-                /* Top row: L0.0–L0.5 | R0.0–R0.5 — scroll + switcher cluster */
-                &kp PAGE_UP  &kp PAGE_DOWN  &page_up_80  &kp LG(T)  &kp LG(LS(T))  &kp LG(L)
-                &kp LG(TAB)  &kp LGUI       &kp LEFT     &kp RIGHT  &kp LG(TILDE)   &kp LG(W)
+                /* Top: L0.0–L0.5 | R0.0–R0.5
+                 * L: LC(R) LG(L) LG([) LG(]) LG(R) LG(F)
+                 * R: LA(LEFT) LA(RIGHT) LS(LA(LEFT)) LS(LA(RIGHT)) LC(C) LC(LG(C)) */
+                &kp LC(R)  &kp LG(L)  &kp LG(LEFT_BRACKET)  &kp LG(RIGHT_BRACKET)  &kp LG(R)  &kp LG(F)
+                &kp LA(LEFT)  &kp LA(RIGHT)  &kp LS(LA(LEFT))  &kp LS(LA(RIGHT))  &kp LC(C)  &kp LC(LG(C))
 
-                /* Home row: L1.0–L1.5 | R1.0–R1.5 — doc nav + Spotlight/Terminal/tabs */
-                &kp UP  &kp DOWN  &kp LG(HOME)  &kp LG(END)  &kp LS(HOME)  &kp LS(END)
-                &kp LG(SPACE)  &kp LG(N)  &kp LC(C)  &kp LC(R)  &kp LC(LS(TAB))  &kp LC(TAB)
+                /* Home: L1.0–L1.5 | R1.0–R1.5
+                 * L: LG(HOME) SPACE | tab 2×2 top | UP + 14× Up
+                 * R: ESC Spotlight F18 new_tab Fullscreen spare */
+                &kp LG(HOME)  &kp SPACE  &kp LC(LS(TAB))  &kp LC(TAB)  &kp UP  &page_up_80
+                &kp ESC  &kp LG(SPACE)  &kp F18  &new_tab  &kp LC(LG(F))  &none
 
-                /* Bottom row: L2.0–L2.5 | R2.0–R2.5 — browser + word hop + overlay */
-                &kp LG(LEFT_BRACKET)  &kp LG(RIGHT_BRACKET)  &kp LG(R)  &kp LG(F)  &none  &none
-                &kp LA(LEFT)  &kp LA(RIGHT)  &kp LS(LA(LEFT))  &kp LS(LA(RIGHT))  &kp BACKSPACE  &kp F18
+                /* Bottom: L2.0–L2.5 | R2.0–R2.5
+                 * L: LS(END) LG(LS(T)) | close + new_window | DOWN + 14× Down
+                 * R: left_arrow right_arrow LGUI LG(TAB) LG(END) F19 (VC listen) */
+                &kp LS(END)  &kp LG(LS(T))  &close_window  &new_window  &kp DOWN  &page_down_80
+                &left_arrow  &right_arrow  &kp LGUI  &kp LG(TAB)  &kp LG(END)  &kp F19
 
-                /* Thumbs: LT0–LT2 | RT0–RT2 */
-                &kp GLOBE  &kp SPACE  &kp RET  &kp ESC  &page_down_80  &none
+                /* Thumbs: LT0–LT2 | RT0–RT2
+                 * LALT / Option (Wispr) BACKSPACE RET | PAGE_UP PAGE_DOWN next_window */
+                &kp LALT  &kp BACKSPACE  &kp RET  &kp PAGE_UP  &kp PAGE_DOWN  &next_window
             >;
         };
     };
