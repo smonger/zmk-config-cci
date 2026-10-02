@@ -12,8 +12,9 @@
  * LT0 LALT = sole Wispr Flow key (Wispr app: bind Option/Alt; F16/Globe not used).
  * R2.5 F19 = Voice Control listen (Hammerspoon).
  *
- * One-shot app chords (next/close/new window, new tab) use tap macros so a held
- * physical key cannot keep the chord down and trigger macOS key-repeat.
+ * One-shot taps (next/close/new window, new tab, Left/Right) use tap macros so a
+ * held physical key cannot keep the key/chord down and trigger macOS key-repeat.
+ * Left/Right one-shots stop Cmd-Tab switcher overshoot from key-repeat.
  */
 
 #include <behaviors.dtsi>
@@ -84,6 +85,26 @@
             tap-ms = <30>;
             bindings = <&kp LG(T)>;
         };
+
+        /* Same one-shot pattern as next/close window: tap once on press so a
+         * held Left/Right during Cmd-Tab cannot macOS-repeat and overshoot. */
+        left_arrow: macro_left_arrow {
+            compatible = "zmk,behavior-macro";
+            label = "LEFT_ARROW";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings = <&kp LEFT>;
+        };
+
+        right_arrow: macro_right_arrow {
+            compatible = "zmk,behavior-macro";
+            label = "RIGHT_ARROW";
+            #binding-cells = <0>;
+            wait-ms = <0>;
+            tap-ms = <30>;
+            bindings = <&kp RIGHT>;
+        };
     };
 
     keymap {
@@ -104,9 +125,9 @@
 
                 /* Bottom: L2.0–L2.5 | R2.0–R2.5
                  * L: LS(END) LG(LS(T)) | close + new_window | DOWN + 14× Down
-                 * R: LEFT RIGHT LGUI LG(TAB) LG(END) F19 (VC listen) */
+                 * R: left_arrow right_arrow LGUI LG(TAB) LG(END) F19 (VC listen) */
                 &kp LS(END)  &kp LG(LS(T))  &close_window  &new_window  &kp DOWN  &page_down_80
-                &kp LEFT  &kp RIGHT  &kp LGUI  &kp LG(TAB)  &kp LG(END)  &kp F19
+                &left_arrow  &right_arrow  &kp LGUI  &kp LG(TAB)  &kp LG(END)  &kp F19
 
                 /* Thumbs: LT0–LT2 | RT0–RT2
                  * LALT / Option (Wispr) BACKSPACE RET | PAGE_UP PAGE_DOWN next_window */
