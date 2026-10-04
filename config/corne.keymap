@@ -89,7 +89,7 @@
 
                 /* Home: L1.0–L1.5 | R1.0–R1.5 */
                 &none  &none  &kp LG(LS(T))  &close_window  &left_arrow  &kp UP
-                &kp LG(N5)  &kp LG(N6)  &kp LG(N7)  &kp LG(LS(BSLASH))  &none  &none
+                &kp LG(N5)  &kp LG(N6)  &kp LG(N7)  &kp LG(LS(BSLH))  &none  &none
 
                 /* Bottom: L2.0–L2.5 | R2.0–R2.5 */
                 &none  &none  &new_tab  &cmd_tab  &right_arrow  &kp DOWN
