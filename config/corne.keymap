@@ -77,6 +77,15 @@
             tap-ms = <30>;
             bindings = <&kp RIGHT>;
         };
+
+        clear_input_line: macro_clear_input_line {
+            compatible = "zmk,behavior-macro";
+            label = "CLEAR_INPUT_LINE";
+            #binding-cells = <0>;
+            wait-ms = <15>;
+            tap-ms = <30>;
+            bindings = <&kp LC(A) &kp LC(K)>;
+        };
     };
 
     keymap {
@@ -84,7 +93,7 @@
         navigation_layer {
             bindings = <
                 /* Top: L0.0–L0.5 | R0.0–R0.5 */
-                &none  &none  &new_window  &kp LG(SPACE)  &kp LC(LG(F))  &kp ESC
+                &clear_input_line  &kp LG(LS(LEFT))  &new_window  &kp LG(SPACE)  &kp LC(LG(F))  &kp ESC
                 &kp LG(N1)  &kp LG(N2)  &kp LG(N3)  &kp LG(N4)  &none  &none
 
                 /* Home: L1.0–L1.5 | R1.0–R1.5 */
@@ -92,8 +101,8 @@
                 &kp LG(N5)  &kp LG(N6)  &kp LG(N7)  &kp LG(LS(BSLH))  &none  &none
 
                 /* Bottom: L2.0–L2.5 | R2.0–R2.5 */
-                &none  &none  &new_tab  &cmd_tab  &right_arrow  &kp DOWN
-                &kp LC(TAB)  &kp LG(N8)  &kp LG(N9)  &kp LC(LS(TAB))  &none  &none
+                &kp LG(LS(RIGHT))  &none  &new_tab  &cmd_tab  &right_arrow  &kp DOWN
+                &kp LG(LEFT)  &kp LG(N8)  &kp LG(N9)  &kp LG(RIGHT)  &none  &none
 
                 /* Thumbs: LT0–LT2 | RT0–RT2 */
                 &wispr_flow  &kp BACKSPACE  &kp RET  &kp PAGE_UP  &kp PAGE_DOWN  &mt LGUI F18
