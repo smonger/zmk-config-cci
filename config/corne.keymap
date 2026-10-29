@@ -4,7 +4,8 @@
  * then thumbs (L outer→inner, R inner→outer).
  *
  * Layers: navigation (0), passthrough (1), pointer (2).
- * LT0 / RT2 hold layer 2; tap Option / F18.
+ * LT0 / RT2 hold layer 2; tap Option / Space (RT2 tap TBD).
+ * LT1 = F18 cheatsheet overlay; Backspace seat TBD.
  * One-shot tap macros for window/tab/Cmd chords (no macOS key-repeat).
  * hjkl arrows use press/pause/release macros for OS key repeat on layer 0.
  */
@@ -162,10 +163,10 @@
             bindings = <
                 /* Top: L0.0–L0.5 | R0.0–R0.5 */
                 &none  &none  &new_window  &kp LG(SPACE)  &kp LC(LG(F))  &kp ESC
-                &kp LC(LS(TAB))  &kp LC(TAB)  &kp LGUI  &kp LG(L)  &none  &none
+                &kp LC(LS(TAB))  &kp LC(TAB)  &kp LGUI  &cmd_tab  &none  &none
 
                 /* Home: L1.0–L1.5 | R1.0–R1.5 */
-                &none  &none  &close_window  &clear_input_line  &kp DEL  &cmd_tab
+                &none  &none  &close_window  &clear_input_line  &kp DEL  &kp LG(L)
                 &kp LG(LS(LEFT))  &kp LG(LS(RIGHT))  &next_window  &word_macro  &none  &none
 
                 /* Bottom: L2.0–L2.5 | R2.0–R2.5 — L2.2–L2.5 = vim hjkl */
@@ -173,7 +174,7 @@
                 &iterm_tab_left  &iterm_tab_right  &paste_plain  &new_tab  &none  &none
 
                 /* Thumbs: LT0–LT2 | RT0–RT2 */
-                &lt 2 LALT  &kp BACKSPACE  &kp RET  &kp PAGE_UP  &kp PAGE_DOWN  &lt 2 F18
+                &lt 2 LALT  &kp F18  &kp RET  &kp PAGE_UP  &kp PAGE_DOWN  &lt 2 SPACE
             >;
         };
 
@@ -193,7 +194,7 @@
             bindings = <
                 /* Top: layer-2 left overrides; right same as main */
                 &none  &none  &kp LG(LS(T))  &kp LG(SPACE)  &kp LC(LG(F))  &none
-                &kp LC(LS(TAB))  &kp LC(TAB)  &kp LGUI  &kp LG(L)  &none  &none
+                &kp LC(LS(TAB))  &kp LC(TAB)  &kp LGUI  &cmd_tab  &none  &none
 
                 /* Home: clicks + scroll on left; right same as main */
                 &none  &none  &mkp LCLK  &mkp RCLK  &msc SCRL_UP  &msc SCRL_DOWN
@@ -204,7 +205,7 @@
                 &iterm_tab_left  &iterm_tab_right  &paste_plain  &new_tab  &none  &none
 
                 /* Thumbs: same as main */
-                &lt 2 LALT  &kp BACKSPACE  &kp RET  &kp PAGE_UP  &kp PAGE_DOWN  &lt 2 F18
+                &lt 2 LALT  &kp F18  &kp RET  &kp PAGE_UP  &kp PAGE_DOWN  &lt 2 SPACE
             >;
         };
     };
