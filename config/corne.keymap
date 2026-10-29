@@ -1,12 +1,12 @@
-/* Korn split — terminal tabs layout v2 (proposed)
+/* Korn split — terminal tabs layout v2
  *
  * Matrix: 12-wide interleaved rows (left 6 outer→inner, right 6 inner→outer),
  * then thumbs (L outer→inner, R inner→outer).
  *
- * Single main layer (navigation_layer). No cmd hold layer.
- * LT0 = Option+W Wispr macro; RT2 = hold LGUI / tap F18 (mod-tap).
+ * Layers: navigation (0), passthrough (1), pointer (2).
+ * LT0 / RT2 hold layer 2; tap Option / F18.
  * One-shot tap macros for window/tab/Cmd chords (no macOS key-repeat).
- * hjkl arrows use press/pause/release macros for OS key repeat.
+ * hjkl arrows use press/pause/release macros for OS key repeat on layer 0.
  */
 
 #include <behaviors.dtsi>
@@ -16,15 +16,6 @@
 
 / {
     behaviors {
-        wispr_flow: macro_wispr_flow {
-            compatible = "zmk,behavior-macro";
-            label = "WISPR_FLOW";
-            #binding-cells = <0>;
-            wait-ms = <0>;
-            tap-ms = <30>;
-            bindings = <&kp LA(W)>;
-        };
-
         close_window: macro_close_window {
             compatible = "zmk,behavior-macro";
             label = "CLOSE_WINDOW";
@@ -166,22 +157,54 @@
 
     keymap {
         compatible = "zmk,keymap";
+
         navigation_layer {
             bindings = <
                 /* Top: L0.0–L0.5 | R0.0–R0.5 */
                 &none  &none  &new_window  &kp LG(SPACE)  &kp LC(LG(F))  &kp ESC
-                &next_window  &kp LG(N2)  &kp LG(N3)  &kp LG(N8)  &none  &none
+                &kp LC(LS(TAB))  &kp LC(TAB)  &kp LGUI  &kp LG(L)  &none  &none
 
                 /* Home: L1.0–L1.5 | R1.0–R1.5 */
-                &none  &none  &kp LG(LS(T))  &close_window  &clear_input_line  &cmd_tab
-                &kp LG(LS(LEFT))  &kp LG(LS(RIGHT))  &word_macro  &kp LG(N9)  &none  &none
+                &none  &none  &close_window  &clear_input_line  &kp DEL  &cmd_tab
+                &kp LG(LS(LEFT))  &kp LG(LS(RIGHT))  &next_window  &word_macro  &none  &none
 
                 /* Bottom: L2.0–L2.5 | R2.0–R2.5 — L2.2–L2.5 = vim hjkl */
                 &none  &none  &hold_left  &hold_down  &hold_up  &hold_right
                 &iterm_tab_left  &iterm_tab_right  &paste_plain  &new_tab  &none  &none
 
                 /* Thumbs: LT0–LT2 | RT0–RT2 */
-                &wispr_flow  &kp BACKSPACE  &kp RET  &kp PAGE_UP  &kp PAGE_DOWN  &mt LGUI F18
+                &lt 2 LALT  &kp BACKSPACE  &kp RET  &kp PAGE_UP  &kp PAGE_DOWN  &lt 2 F18
+            >;
+        };
+
+        passthrough_layer {
+            bindings = <
+                &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans
+                &trans  &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+
+        pointer_layer {
+            bindings = <
+                /* Top: layer-2 left overrides; right same as main */
+                &none  &none  &kp LG(LS(T))  &kp LG(SPACE)  &kp LC(LG(F))  &none
+                &kp LC(LS(TAB))  &kp LC(TAB)  &kp LGUI  &kp LG(L)  &none  &none
+
+                /* Home: clicks + scroll on left; right same as main */
+                &none  &none  &mkp LCLK  &mkp RCLK  &msc SCRL_UP  &msc SCRL_DOWN
+                &kp LG(LS(LEFT))  &kp LG(LS(RIGHT))  &next_window  &word_macro  &none  &none
+
+                /* Bottom: pointer move on left; right same as main */
+                &none  &none  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_UP  &mmv MOVE_RIGHT
+                &iterm_tab_left  &iterm_tab_right  &paste_plain  &new_tab  &none  &none
+
+                /* Thumbs: same as main */
+                &lt 2 LALT  &kp BACKSPACE  &kp RET  &kp PAGE_UP  &kp PAGE_DOWN  &lt 2 F18
             >;
         };
     };
