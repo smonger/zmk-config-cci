@@ -5,7 +5,7 @@
  *
  * Layers: navigation (0), passthrough (1), pointer (2).
  * LT0 / RT2 hold layer 2; tap Option / Space (RT2 tap TBD).
- * Main L1.5 = Backspace; R0.3 = cmd_tab; pointer L1.5 = LG(L); LT1 = F18.
+ * Main L1.5 = Backspace; R0.3 = cmd_tab; pointer L0.5 = LG(L); L1.4–L1.5 scroll; R0.1 cut_line; LT1 = F18.
  * One-shot tap macros for window/tab/Cmd chords (no macOS key-repeat).
  * hjkl arrows use press/pause/release macros for OS key repeat on layer 0.
  */
@@ -69,6 +69,15 @@
             wait-ms = <15>;
             tap-ms = <30>;
             bindings = <&kp LC(A) &kp LC(K)>;
+        };
+
+        cut_line: macro_cut_line {
+            compatible = "zmk,behavior-macro";
+            label = "CUT_LINE";
+            #binding-cells = <0>;
+            wait-ms = <15>;
+            tap-ms = <30>;
+            bindings = <&kp LG(LEFT) &kp LG(LS(RIGHT)) &kp LG(X)>;
         };
 
         word_macro: macro_word_custom {
@@ -166,7 +175,7 @@
                 &kp LC(LS(TAB))  &kp LC(TAB)  &kp LGUI  &cmd_tab  &none  &none
 
                 /* Home: L1.0–L1.5 | R1.0–R1.5 */
-                &none  &none  &close_window  &clear_input_line  &kp DEL  &kp BACKSPACE
+                &none  &none  &clear_input_line  &close_window  &kp DEL  &kp BACKSPACE
                 &kp LG(LS(LEFT))  &kp LG(LS(RIGHT))  &next_window  &word_macro  &none  &none
 
                 /* Bottom: L2.0–L2.5 | R2.0–R2.5 — L2.2–L2.5 = vim hjkl */
@@ -193,11 +202,11 @@
         pointer_layer {
             bindings = <
                 /* Top: layer-2 left overrides; right same as main */
-                &none  &none  &kp LG(LS(T))  &kp LG(SPACE)  &kp LC(LG(F))  &none
-                &kp LC(LS(TAB))  &kp LC(TAB)  &kp LGUI  &cmd_tab  &none  &none
+                &none  &none  &kp LG(LS(T))  &kp LG(G)  &kp LC(LG(F))  &kp LG(L)
+                &kp LC(LS(TAB))  &cut_line  &kp LGUI  &cmd_tab  &none  &none
 
                 /* Home: clicks + scroll on left; right same as main */
-                &none  &none  &mkp LCLK  &mkp RCLK  &msc SCRL_UP  &kp LG(L)
+                &none  &none  &mkp LCLK  &mkp RCLK  &msc SCRL_UP  &msc SCRL_DOWN
                 &kp LG(LS(LEFT))  &kp LG(LS(RIGHT))  &next_window  &word_macro  &none  &none
 
                 /* Bottom: pointer move on left; right same as main */
